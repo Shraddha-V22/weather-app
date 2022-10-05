@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&display=swap");
+
+:root {
+  --fs-medium: 0.5rem;  
+  --fs-regular: 1.5rem;  
+  --fs-xlarge: 3.5rem;  
+
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+
+  --spacing-medium: 8px;
+  --spacing-regular: 16px;
+  --gap: 16px;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Karla", sans-serif;
+  background-color: #fef9c3;
+}
+
+img {
+  width: 100%;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+  margin: 1rem auto;
+  width: 400px;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "current current" "hourly hourly" "daily daily"
+    "feels humidity";
+  border: 1px solid;
+  border-radius: var(--spacing-medium);
+  gap: var(--gap);
+  padding: 1rem;
+}
+
+.container > article {
+  border: 1px solid;
+  border-radius: var(--spacing-medium);
+  padding: var(--spacing-medium);
+}
+
+#current-forecast {
+  grid-area: current;
+}
+#current-forecast .temp{
+  font-size: var(--fs-xlarge);
+}
+#current-forecast .descp{
+  font-weight: var(--fw-600);
+}
+#current-forecast .high-low{
+  font-weight: var(--fw-600);
+}
+
+#hourly-forecast {
+  grid-area: hourly;
+}
+#five-day-forecast {
+  grid-area: daily;
+}
+#feels-like {
+  grid-area: feels;
+}
+#humidity {
+  grid-area: humidity;
+}
