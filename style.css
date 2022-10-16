@@ -108,6 +108,34 @@ img {
   grid-area: daily;
 }
 
+#five-day-forecast #five-day-forecast-container {
+  display: grid;
+  grid-auto-flow: row;
+  /* gap: var(--spacing-medium);
+  padding-block: var(--spacing-regular); */
+}
+
+#five-day-forecast-container .day-wise-forecast {
+  display: grid;
+  grid-template: auto / repeat(4, 1fr);
+  gap: var(--spacing-medium);
+  place-items: center;
+} 
+
+#five-day-forecast-container .day-wise-forecast .icon {
+  width: 75px;
+  height: 75px;
+}
+
+#five-day-forecast-container .day-wise-forecast .min-temp,
+#five-day-forecast-container .day-wise-forecast .max-temp {
+  font-weight: var(--fw-600);
+}
+
+#five-day-forecast-container .day-wise-forecast .min-temp {
+  opacity: 50%;
+}
+
 #feels-like {
   grid-area: feels;
 }
