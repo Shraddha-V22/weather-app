@@ -24,11 +24,17 @@
 
 body {
   font-family: "Karla", sans-serif;
-  background-color: #fef9c3;
+  background: linear-gradient(45deg, rgb(185, 192, 216), rgb(127, 155, 248), rgb(17, 29, 70));
+  color: rgb(255, 255, 255);
 }
 
 img {
   width: 100%;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .flex {
@@ -45,7 +51,7 @@ img {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
-    "current current" "hourly hourly" "daily daily"
+    "search search" "current current" "hourly hourly" "daily daily"
     "feels humidity";
   border: 1px solid;
   border-radius: var(--spacing-medium);
@@ -60,7 +66,14 @@ img {
   text-align: center;
 }
 
-/* current-foreccast */
+/* current-forecast */
+#search {
+  grid-area: search;
+  border-radius: var(--spacing-medium);
+  padding: var(--spacing-medium);
+  border: 1px solid;
+}
+
 #current-forecast {
   grid-area: current;
 }
@@ -111,6 +124,7 @@ img {
 #five-day-forecast #five-day-forecast-container {
   display: grid;
   grid-auto-flow: row;
+  padding: var(--spacing-regular);
   /* gap: var(--spacing-medium);
   padding-block: var(--spacing-regular); */
 }
@@ -121,6 +135,11 @@ img {
   gap: var(--spacing-medium);
   place-items: center;
 } 
+
+#five-day-forecast-container .day-wise-forecast .day {
+  text-transform: capitalize;
+  justify-self: start;
+}
 
 #five-day-forecast-container .day-wise-forecast .icon {
   width: 75px;
@@ -134,6 +153,10 @@ img {
 
 #five-day-forecast-container .day-wise-forecast .min-temp {
   opacity: 50%;
+}
+
+#five-day-forecast-container .day-wise-forecast .max-temp {
+  justify-self: end;
 }
 
 #feels-like {
