@@ -2,18 +2,24 @@ const API_KEY = "b972a6b16186a0a858b69afe29c20800";
 
 const DAYS_OF_THE_WEEK = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
+let selectedCityText;
+let selectedCity;
+
 //getting cities' list
 const getCitiesUsingGeoLocation = async (searchCity) => {
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${API_KEY}`);
+  const response = await fetch(
+    `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${API_KEY}`
+  );
   return response.json();
-}
+};
 
 //fetching current weather data
-const getCurrentWeather = async () => {
-  const city = "mumbai";
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-  );
+const getCurrentWeather = async ({ lat, lon, name: city }) => {
+  let url =
+    lat && lon
+      ? `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+      : `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+  const response = await fetch(url);
   return response.json();
 };
 
@@ -43,7 +49,7 @@ const getIcon = (code) => `http://openweathermap.org/img/wn/${code}@2x.png`;
 const loadCurrentWeather = ({
   name,
   main: { temp, temp_min, temp_max },
-  weather: { description },
+  weather: [{ description }],
 }) => {
   const currentWeatherData = document.querySelector("#current-forecast");
   currentWeatherData.querySelector(".city").textContent = name;
@@ -64,8 +70,9 @@ const loadHourlyForecast = (
 ) => {
   // console.log(hourlyForecast);
   const timeFormatter = Intl.DateTimeFormat("en", {
-    hour12: true, hour: "numeric"
-  })
+    hour12: true,
+    hour: "numeric",
+  });
 
   const dataFor12Hours = hourlyForecast.slice(2, 13);
   let innerHTML = `<article>
@@ -107,7 +114,7 @@ const calculateDayWiseForecast = (hourlyForecast) => {
       icon: value.find((v) => v.icon).icon,
     });
   }
-  console.log(dayWiseForecast);
+  // console.log(dayWiseForecast);
   return dayWiseForecast;
 };
 
@@ -152,29 +159,58 @@ function debounce(func) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       func.apply(this, args);
-    }, 500)
-  }
+    }, 500);
+  };
 }
 
 const onSearchChange = async (event) => {
-  const {value} = event.target;
-  const cityResults = await getCitiesUsingGeoLocation(value);
-  let options = "";
-  for (let {lat, lon, name, state, country} of cityResults) {
-    options += `<option data-city-details="${JSON.stringify({lat, lon, name})}" value="${name}, ${state}, ${country}"></option>`;
+  const { value } = event.target;
+  if (!value) {
+    selectedCity = null;
+    selectedCityText = "";
   }
-  document.querySelector("#search-city").innerHTML = options;
-}
+  if (value && selectedCityText !== value) {
+    const cityResults = await getCitiesUsingGeoLocation(value);
+    let options = "";
+    for (let { lat, lon, name, state, country } of cityResults) {
+      options += `<option data-city-details='${JSON.stringify({
+        lat,
+        lon,
+        name,
+      })}' value="${name}, ${state}, ${country}"></option>`;
+    }
+    document.querySelector("#search-city").innerHTML = options;
+  }
+};
 
 const debounceSearch = debounce((event) => onSearchChange(event));
 
+const handleCitySelection = (event) => {
+  selectedCityText = event.target.value;
+  const options = document.querySelectorAll("#search-city > option");
+  if (options?.length) {
+    let selectedOption = Array.from(options).find(
+      (op) => op.value === selectedCityText
+    );
+    // console.log(selectedOption);
+    selectedCity = JSON.parse(selectedOption.getAttribute("data-city-details"));
+    // console.log({ selectedCity });
+    //calling the function
+    loadData();
+  }
+};
+
+const loadForecastUsingGeoLocation = () => {
+  navigator.geolocation.getCurrentPosition(({coords}) => {
+    const {latitude:lat, longitude:lon} = coords;
+    selectedCity = {lat, lon};
+    loadData();
+  }, error => console.log(error))
+}
+
 //function for loading all the data by calling all the loading functions
 const loadData = async () => {
-
-  const searchInput = document.querySelector("#search");
-  searchInput.addEventListener("input", debounceSearch)
-
-  const currentWeather = await getCurrentWeather();
+  const currentWeather = await getCurrentWeather(selectedCity);
   loadCurrentWeather(currentWeather);
   const hourlyForecast = await getHourlyForecast(currentWeather);
   loadHourlyForecast(currentWeather, hourlyForecast);
@@ -183,5 +219,7 @@ const loadData = async () => {
   loadHumidity(currentWeather);
 };
 
-//calling the function
-loadData();
+loadForecastUsingGeoLocation();
+const searchInput = document.querySelector("#search");
+searchInput.addEventListener("input", debounceSearch);
+searchInput.addEventListener("change", handleCitySelection);
