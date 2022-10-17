@@ -47,7 +47,7 @@ input {
 
 .container {
   margin: 1rem auto;
-  width: 400px;
+  max-width: 800px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
@@ -71,7 +71,7 @@ input {
   grid-area: search;
   border-radius: var(--spacing-medium);
   padding: var(--spacing-medium);
-  border: 1px solid;
+  border: 1px;
 }
 
 #current-forecast {
@@ -169,4 +169,12 @@ input {
 
 #humidity {
   grid-area: humidity;
+}
+
+@media (width > 650) {
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "search search search search" "current current current current" "hourly hourly daily daily" "feels humidity daily daily";
+  }
 }
