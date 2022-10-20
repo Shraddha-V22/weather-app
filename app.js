@@ -8,7 +8,7 @@ let selectedCity;
 //getting cities' list
 const getCitiesUsingGeoLocation = async (searchCity) => {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${API_KEY}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${API_KEY}`
   );
   return response.json();
 };
@@ -43,7 +43,7 @@ const getHourlyForecast = async ({ name: city }) => {
 //helper-function for formatting the temp
 const formatTemperature = (temp) => `${temp?.toFixed(1)}°`;
 //helper function for getting icon url
-const getIcon = (code) => `http://openweathermap.org/img/wn/${code}@2x.png`;
+const getIcon = (code) => `https://openweathermap.org/img/wn/${code}@2x.png`;
 
 //function for loading the data in current weather section
 const loadCurrentWeather = ({
