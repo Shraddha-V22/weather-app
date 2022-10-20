@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&display=swap");
 
 :root {
-  --fs-medium: 0.5rem;  
-  --fs-regular: 1.5rem;  
-  --fs-xlarge: 3.5rem;  
+  --fs-medium: 0.5rem;
+  --fs-regular: 1.5rem;
+  --fs-xlarge: 3.5rem;
 
   --fw-500: 500;
   --fw-600: 600;
@@ -24,7 +24,12 @@
 
 body {
   font-family: "Karla", sans-serif;
-  background: linear-gradient(45deg, rgb(185, 192, 216), rgb(127, 155, 248), rgb(17, 29, 70));
+  background: linear-gradient(
+    45deg,
+    rgb(185, 192, 216),
+    rgb(127, 155, 248),
+    rgb(17, 29, 70)
+  );
   color: rgb(255, 255, 255);
 }
 
@@ -38,11 +43,11 @@ input {
 }
 
 .flex {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-medium);
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -55,15 +60,17 @@ input {
     "feels humidity";
   border: 1px solid;
   border-radius: var(--spacing-medium);
-  gap: var(--gap);
+  gap: 25px;
   padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .container > article {
-  border: 1px solid;
+  /* border: 1px solid; */
   border-radius: var(--spacing-medium);
   padding: var(--spacing-medium);
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 /* current-forecast */
@@ -71,19 +78,23 @@ input {
   grid-area: search;
   border-radius: var(--spacing-medium);
   padding: var(--spacing-medium);
-  border: 1px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+#search:focus {
+  outline: none;
 }
 
 #current-forecast {
   grid-area: current;
 }
-#current-forecast .temp{
+#current-forecast .temp {
   font-size: var(--fs-xlarge);
 }
-#current-forecast .descp{
+#current-forecast .descp {
   font-weight: var(--fw-600);
 }
-#current-forecast .high-low{
+#current-forecast .high-low {
   font-weight: var(--fw-600);
 }
 
@@ -92,7 +103,7 @@ input {
   grid-area: hourly;
 }
 
-#hourly-forecast .hourly-temp{
+#hourly-forecast .hourly-temp {
   font-weight: var(--fw-600);
 }
 
@@ -108,10 +119,11 @@ input {
   width: 10px;
   height: 8px;
 }
-.hourly-container::-webkit-scrollbar-track{
+.hourly-container::-webkit-scrollbar-track {
   background-color: #fef9c3;
+  border-radius: 5px;
 }
-.hourly-container::-webkit-scrollbar-thumb:hover{
+.hourly-container::-webkit-scrollbar-thumb:hover {
   background-color: #a3a07d;
   border-radius: 5px;
 }
@@ -134,7 +146,7 @@ input {
   grid-template: auto / repeat(4, 1fr);
   gap: var(--spacing-medium);
   place-items: center;
-} 
+}
 
 #five-day-forecast-container .day-wise-forecast .day {
   text-transform: capitalize;
@@ -152,7 +164,7 @@ input {
 }
 
 #five-day-forecast-container .day-wise-forecast .min-temp {
-  opacity: 50%;
+  opacity: 70%;
 }
 
 #five-day-forecast-container .day-wise-forecast .max-temp {
@@ -171,10 +183,9 @@ input {
   grid-area: humidity;
 }
 
-@media (width > 650) {
+@media (width > 650px) {
   .container {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-areas:
-      "search search search search" "current current current current" "hourly hourly daily daily" "feels humidity daily daily";
+    grid-template-areas: "search search search search" "current current current current" "hourly hourly daily daily" "feels humidity daily daily";
   }
 }
