@@ -22,6 +22,12 @@
   box-sizing: border-box;
 }
 
+@keyframes pan {
+  100% {
+    background-position: 15% 50%;
+  }
+}
+
 body {
   padding: 0 24px;
   font-family: "Karla", sans-serif;
@@ -30,12 +36,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   animation: pan 6s infinite alternate linear;
-}
-
-@keyframes pan {
-  100% {
-    background-position: 15% 50%;
-  }
 }
 
 img {
