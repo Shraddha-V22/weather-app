@@ -22,6 +22,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: auto;
+}
+
 @keyframes pan {
   100% {
     background-position: 15% 50%;
