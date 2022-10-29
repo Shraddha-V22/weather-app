@@ -24,13 +24,23 @@
 
 body {
   font-family: "Karla", sans-serif;
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     rgb(185, 192, 216),
     rgb(127, 155, 248),
     rgb(17, 29, 70)
-  );
-  color: rgb(255, 255, 255);
+  ); */
+  color: #001d15;
+  background-image: url("bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: pan 6s infinite alternate linear;
+}
+
+@keyframes pan {
+  100% {
+    background-position: 15% 50%;
+  }
 }
 
 img {
@@ -51,18 +61,17 @@ input {
 }
 
 .container {
-  margin: 1rem auto;
+  margin: 3rem auto;
   max-width: 800px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
     "search search" "current current" "hourly hourly" "daily daily"
     "feels humidity";
-  border: 1px solid;
+  /* border: 1px solid; */
   border-radius: var(--spacing-medium);
   gap: 25px;
   padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .container > article {
@@ -71,6 +80,7 @@ input {
   padding: var(--spacing-medium);
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background: hsla(0, 0%, 100%, 0.4);
 }
 
 /* current-forecast */
@@ -101,6 +111,8 @@ input {
 /* hourly-forecast */
 #hourly-forecast {
   grid-area: hourly;
+  display: grid;
+  align-items: center;
 }
 
 #hourly-forecast .hourly-temp {
@@ -119,7 +131,7 @@ input {
   width: 10px;
   height: 8px;
 }
-.hourly-container::-webkit-scrollbar-track {
+.hourly-container::-webkit-scrollbar-track:hover {
   background-color: #fef9c3;
   border-radius: 5px;
 }
@@ -173,14 +185,19 @@ input {
 
 #feels-like {
   grid-area: feels;
+  display: grid;
+  place-items: center;
 }
 #feels-like .feels-temp,
 #humidity .humidity-value {
   font-weight: var(--fw-600);
+  font-size: var(--fs-regular);
 }
 
 #humidity {
   grid-area: humidity;
+  display: grid;
+  place-items: center;
 }
 
 @media (width > 650px) {
