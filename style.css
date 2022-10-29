@@ -22,14 +22,14 @@
   box-sizing: border-box;
 }
 
+html,
 body {
+  height: 100%;
+}
+
+body {
+  padding: 0 24px;
   font-family: "Karla", sans-serif;
-  /* background: linear-gradient(
-    45deg,
-    rgb(185, 192, 216),
-    rgb(127, 155, 248),
-    rgb(17, 29, 70)
-  ); */
   color: #001d15;
   background-image: url("bg.svg");
   background-repeat: no-repeat;
@@ -201,6 +201,9 @@ input {
 }
 
 @media (width > 650px) {
+  body {
+    padding: 0;
+  }
   .container {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas: "search search search search" "current current current current" "hourly hourly daily daily" "feels humidity daily daily";
