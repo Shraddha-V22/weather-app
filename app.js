@@ -201,12 +201,15 @@ const handleCitySelection = (event) => {
 };
 
 const loadForecastUsingGeoLocation = () => {
-  navigator.geolocation.getCurrentPosition(({coords}) => {
-    const {latitude:lat, longitude:lon} = coords;
-    selectedCity = {lat, lon};
-    loadData();
-  }, error => console.log(error))
-}
+  navigator.geolocation.getCurrentPosition(
+    ({ coords }) => {
+      const { latitude: lat, longitude: lon } = coords;
+      selectedCity = { lat, lon };
+      loadData();
+    },
+    (error) => console.log(error)
+  );
+};
 
 //function for loading all the data by calling all the loading functions
 const loadData = async () => {
